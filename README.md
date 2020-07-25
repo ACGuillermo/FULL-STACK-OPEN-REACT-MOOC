@@ -6,6 +6,7 @@ This repository contains exercise solutions to the 2020 edition of the Full Stac
 
 Sequence diagram showing network communication.
 
-### Resource
+#### Resources
+* [websequencediagrams](https://www.websequencediagrams.com)
 
 [View Solutions](https://github.com/ACGuillermo/FULL-STACK-OPEN-REACT-MOOC/tree/master/part0)
