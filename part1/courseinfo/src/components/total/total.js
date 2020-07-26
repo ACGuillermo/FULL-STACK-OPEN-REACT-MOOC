@@ -2,18 +2,18 @@ import React from 'react'
 
 const Total = (props) => {
 
-    const sumExercises = (parts) =>{
+    const sumExercises = () =>{
         let sum = 0
-        parts.forEach(part =>{
+        props.parts.forEach(part =>{
             sum += part.exercises
         })
 
         return sum
     }
 
-    
+
     return (
-        <p>Number of exercises {sumExercises(props.parts)} </p>
+        <p>Number of exercises {sumExercises()} </p>
     )
 }
 
