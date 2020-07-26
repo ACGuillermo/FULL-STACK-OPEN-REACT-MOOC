@@ -4,6 +4,9 @@ This repository contains exercise solutions to the 2020 edition of the Full Stac
 
 ## Part 0 - [Fundamentals of Web Apps](https://fullstackopen.com/en/part0)
 
-A series of sequence diagrams to illustrate network communication within a web app
+Sequence diagram showing network communication.
+
+#### Resources
+* [websequencediagrams](https://www.websequencediagrams.com)
 
 [View Solutions](https://github.com/ACGuillermo/FULL-STACK-OPEN-REACT-MOOC/tree/master/part0)
