@@ -2,11 +2,11 @@ import React from 'react'
 
 const Total = (props) => {
 
-    const sumExercises = () =>{
-        let sum = 0
-        props.parts.forEach(part =>{
-            sum += part.exercises
-        })
+
+    const sumExercises = () => {
+        const sum = props.parts.reduce((s,p) => {
+            return s + p.exercises
+        }, 0)
 
         return sum
     }
