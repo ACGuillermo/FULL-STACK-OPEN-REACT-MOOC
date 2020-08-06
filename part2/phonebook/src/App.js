@@ -3,7 +3,8 @@ import Contacts from './components/Contacts'
 import Filter from './components/Filter'
 import ContactForm from './components/ContactForm'
 
-import axios from 'axios'
+import contactService from './services/contacts'
+
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
@@ -12,11 +13,9 @@ const App = () => {
   const [ newFilter, setNewFilter ] = useState('')
 
   useEffect(()=>{
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response=>{
-        setPersons(response.data)
-      })
+    contactService
+      .getAll()
+      .then(contacts=>setPersons(contacts))
   }, [])
 
   const addNewName = (e) => {
@@ -26,7 +25,24 @@ const App = () => {
       setPersons([...persons, {name: newName, phone: newNumber}])
       setNewName('')
       setNewNumber('')
-    }else alert(`${newName} is already added to phonebook`)
+
+      contactService
+        .create({name: newName, phone: newNumber})
+    }else {
+      if(window.confirm(`${newName} is already added. Replace number with the new one?`)){
+        setNewName('')
+        setNewNumber('')
+
+        const contact = persons.find(person => person.name === newName)
+
+        contactService
+          .update(contact.id ,{name: newName, phone: newNumber})
+          .then(response => {
+            setPersons(persons.map(person => person.id === response.id ? response : person))
+          })
+
+      }
+    }
     
   }
 
@@ -37,6 +53,15 @@ const App = () => {
   const handleNumberChange = (e) => setNewNumber(e.target.value)
 
   const handleFilterChange = e => setNewFilter(e.target.value)
+
+  const handleDeleteContact = (contact) => () => {
+    if(window.confirm(`Delete ${contact.name}. Are you sure?`)){
+      contactService
+        .del(contact.id)
+        .then(response=> setPersons(persons.filter(person=> person.id !== contact.id)) )
+      
+    }
+  }
 
   return (
     <div>
@@ -50,7 +75,7 @@ const App = () => {
       
       <h2>Numbers</h2>
       
-      <Contacts persons={persons} newFilter={newFilter} />
+      <Contacts persons={persons} newFilter={newFilter} del={handleDeleteContact} />
     </div>
   )
 }
